@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ImageBackground } from 'react-native';
+import images from '../assets';
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -8,15 +9,18 @@ export default class HomeScreen extends React.Component {
     
     render() {
         return (
-            <View style={styles.container}>
-                <Text>Welcome to Simple Chat</Text>
-                <Button style={styles.button} 
-                    title="Navigate to ChatScreen"
-                    onPress={() => 
-                        this.props.navigation.navigate('chat', { user: 'Ronald' })
-                    }
-                />
-            </View>
+            <ImageBackground
+                style={styles.container} source={images.bg}> 
+                <View style={{ alignItems: 'center', justifyContent: 'center'}}>
+                    <Text>Welcome to Simple Chat</Text>
+                    <Button style={styles.button} 
+                        title="Navigate to ChatScreen"
+                        onPress={() => 
+                            this.props.navigation.navigate('chat', { user: 'Ronald' })
+                        }
+                    />
+                </View>
+            </ImageBackground>
         );
     }
 }
@@ -24,9 +28,8 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: 'transparent',
+        width: '100%'
     },
     button: {
         padding: 10
