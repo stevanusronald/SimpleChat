@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, FlatList, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import images from '../assets';
-import { getMessages } from '../services/api';
+import { getMessages, postMessage } from '../services/api';
 import Message from '../components/Message';
+import Compose from '../components/Compose';
 
 export default class ChatScreen extends React.Component {
   
@@ -25,13 +26,19 @@ export default class ChatScreen extends React.Component {
       <ImageBackground
         style={styles.container} source={images.bg}>
         { this.state.messages.length > 0 ? (
-        <FlatList
-          data={this.state.messages}
-          renderItem={({ item }) =>
-            <Message {...item} />
-          }
-          keyExtractor={(item, index) => (`message-${index}`)}
-        />
+        <KeyboardAvoidingView
+          behavior="padding"
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 100}
+          style={styles.container}>
+            <FlatList
+              data={this.state.messages}
+              renderItem={({ item }) =>
+                <Message {...item} />
+              }
+              keyExtractor={(item, index) => (`message-${index}`)}
+            />
+            <Compose submit={postMessage} />
+        </KeyboardAvoidingView>
         ) :
         <View style={{ flex: 1, justifyContent: 'center'}}>
           <ActivityIndicator size="large"/>
@@ -47,5 +54,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     width: '100%'
-  }
+  },
 });
