@@ -1,10 +1,11 @@
 import React  from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import Avatar from '../components/Avatar'
 
 const Contact = ({ name, preview, navigate, avatarImageUri }) => (
   <TouchableOpacity onPress={() => navigate(name)}>
     <View style={styles.container}>
-      <Image style={ styles.image } source={avatarImageUri}/>
+      <Avatar imageUri={avatarImageUri}/>
       <View style={styles.content}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.preview}>{preview}</Text>
@@ -35,11 +36,6 @@ const styles = StyleSheet.create({
   preview: {
     paddingTop: 5,
     color: "grey"
-  },
-  image: {
-    borderRadius: 40,
-    width: 80, 
-    height: 80
   }
 })
 
